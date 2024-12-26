@@ -10,10 +10,72 @@
       href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap"
       rel="stylesheet"
     />
-    <title>Cubic Bezier Generator</title>
+    <title>Cubic Bezier Curve Generator</title>
   </head>
   <body>
-    <div id="app"></div>
+    <header>
+      <h1>Cubic Bezier Curve Generator</h1>
+      <p>Generate cubic bezier curves for your CSS animation</p>
+    </header>
+    <div class="canvas-container">
+      <p>
+        Drag the handles <code>P1</code> and <code>P2</code> to adjust the
+        curve.
+      </p>
+      <div class="canvas">
+        <canvas></canvas>
+      </div>
+      <details>
+        <summary>How it works</summary>
+        <p>
+          A
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Glossary/Bezier_curve"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Cubic Bézier Curve</a
+          >
+          is a smooth curve defined by four points. The animation begins at the
+          start point (0,0) and ends at the end point (1,1). The first control
+          point (P1) influences the curve's initial direction and speed, while
+          the second control point (P2) influences its ending direction and
+          speed.
+        </p>
+        <br />
+        <p>
+          To generate the curve, you can drag P1 and P2 within the graph. The
+          X-axis represents time, ranging from 0 to 1, and the Y-axis represents
+          the animation progress, also ranging from 0 to 1.
+        </p>
+        <br />
+        <p>
+          The curve is calculated using a mathematical formula that determines
+          the animation's progress at any given time. P1 significantly impacts
+          the beginning of the animation. If P1 is positioned above the diagonal
+          line, the animation will start slowly. Conversely, if P1 is below the
+          diagonal line, the animation will begin quickly. Similarly, P2
+          influences the animation's end. An above-diagonal P2 position results
+          in a slow ending, while a below-diagonal position leads to a quick
+          finish.
+        </p>
+        <br />
+        <p>
+          To use the curve in your CSS, simply copy the generated
+          <code>cubic-bezier(...)</code> value and paste it into the
+          <code>animation-timing-function</code> property.
+        </p>
+      </details>
+    </div>
+    <section class="preview">
+      <h2>Preview</h2>
+      <div class="output">
+        <code>
+          animation-timing-function: cubic-bezier(0.25, 0.75, 0.75, 0.25);
+        </code>
+        <button>Copy</button>
+      </div>
+      <div class="box"></div>
+    </section>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
