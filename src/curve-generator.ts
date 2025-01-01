@@ -40,9 +40,9 @@ export class CurveGenerator {
     this.draggingPoint = null;
   };
 
-  private onMouseMove = (e: MouseEvent) => {
+  private updateCurve = (clientX: number, clientY: number) => {
     // Calculate the dragging point based on the mouse coordinates
-    const point = this.calculateDraggingPoint(e.clientX, e.clientY);
+    const point = this.calculateDraggingPoint(clientX, clientY);
     // Update the cursor based on the dragging point
     this.canvas.style.cursor = this.draggingPoint
       ? "grabbing"
@@ -56,6 +56,32 @@ export class CurveGenerator {
     } else if (this.draggingPoint?.point === "p2") {
       this.curve.x2 = point.x;
       this.curve.y2 = point.y;
+    }
+  };
+
+  private onMouseMove = (e: MouseEvent) => {
+    this.updateCurve(e.clientX, e.clientY);
+  };
+
+  private onTouchMove = (e: TouchEvent) => {
+    const touch = e.touches[0];
+    if (touch) {
+      this.updateCurve(touch.clientX, touch.clientY);
+    }
+  };
+
+  private onTouchStart = (e: TouchEvent) => {
+    // Prevent default behavior to avoid interfering with touch scrolling
+    e.preventDefault();
+
+    // Get the first touch point
+    const touch = e.touches[0];
+    if (touch) {
+      // Update the dragging point based on touch coordinates
+      this.draggingPoint = this.calculateDraggingPoint(
+        touch.clientX,
+        touch.clientY,
+      );
     }
   };
 
@@ -201,8 +227,11 @@ export class CurveGenerator {
 
     window.addEventListener("resize", this.updateCanvasDimensions);
     document.addEventListener("mousedown", this.onMouseDown);
+    document.addEventListener("touchstart", this.onTouchStart);
     document.addEventListener("mouseup", this.onMouseUp);
+    document.addEventListener("touchend", this.onMouseUp);
     this.canvas.addEventListener("mousemove", this.onMouseMove);
+    this.canvas.addEventListener("touchmove", this.onTouchMove);
   }
 
   generateCurveString(curve: CurveCords): string {
