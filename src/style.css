@@ -119,6 +119,7 @@ header h1 {
 .canvas-container summary {
   color: var(--secondary);
   padding-bottom: 0.5rem;
+  cursor: pointer;
 }
 
 .output {
