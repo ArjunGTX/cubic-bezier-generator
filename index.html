@@ -23,7 +23,7 @@
         curve.
       </p>
       <div class="canvas">
-        <canvas></canvas>
+        <canvas id="canvas"></canvas>
       </div>
       <details>
         <summary>How it works</summary>
@@ -67,14 +67,12 @@
       </details>
     </div>
     <section class="preview">
-      <h2>Preview</h2>
+      <h2>Output & Preview</h2>
       <div class="output">
-        <code>
-          animation-timing-function: cubic-bezier(0.25, 0.75, 0.75, 0.25);
-        </code>
+        <code id="output"></code>
         <button id="copy-btn">Copy</button>
       </div>
-      <div class="box"></div>
+      <div class="box" id="box"></div>
     </section>
     <script type="module" src="/src/main.ts"></script>
   </body>
