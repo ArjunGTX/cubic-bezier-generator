@@ -9,7 +9,6 @@
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
-
   color: var(--primary);
   background-color: var(--surface);
   font-synthesis: none;
@@ -26,12 +25,11 @@
 
 body {
   overflow-x: hidden;
-  margin: 0;
   display: flex;
   flex-direction: column;
   align-items: start;
   justify-content: start;
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   padding: 1rem;
   gap: 1rem;
@@ -43,10 +41,10 @@ p {
   margin: 0;
   color: var(--secondary);
 }
+
 a {
   color: inherit;
 }
-
 a:hover,
 a:focus {
   color: var(--primary);
@@ -95,6 +93,7 @@ header h1 {
   translate: -50% 0;
   color: var(--secondary);
   z-index: 1;
+  pointer-events: none;
 }
 
 .canvas-container .canvas::after {
@@ -107,6 +106,7 @@ header h1 {
   translate: 0 -20%;
   color: var(--secondary);
   z-index: 1;
+  pointer-events: none;
 }
 
 .canvas-container summary {
@@ -159,7 +159,6 @@ header h1 {
   height: 50px;
   background-color: #f00;
   animation: slide 2s infinite;
-  animation-timing-function: cubic-bezier(0.25, 0.75, 0.75, 0.25);
 }
 
 @keyframes slide {
