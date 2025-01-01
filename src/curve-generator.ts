@@ -66,6 +66,9 @@ export class CurveGenerator {
   private onTouchMove = (e: TouchEvent) => {
     const touch = e.touches[0];
     if (touch) {
+      if (this.draggingPoint) {
+        e.preventDefault();
+      }
       this.updateCurve(touch.clientX, touch.clientY);
     }
   };
