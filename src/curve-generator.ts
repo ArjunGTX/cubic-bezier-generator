@@ -40,6 +40,11 @@ export class CurveGenerator {
     this.draggingPoint = null;
   };
 
+  private clampCanvasCord = (cord: number) => {
+    // Clamp the coordinate to the range [0,1]
+    return Math.max(0, Math.min(1, cord));
+  };
+
   private updateCurve = (clientX: number, clientY: number) => {
     // Calculate the dragging point based on the mouse coordinates
     const point = this.calculateDraggingPoint(clientX, clientY);
@@ -50,12 +55,14 @@ export class CurveGenerator {
         ? "grab"
         : "default";
     // Update the curve control points based on the dragging point
+    const x = this.clampCanvasCord(point.x);
+    const y = this.clampCanvasCord(point.y);
     if (this.draggingPoint?.point === "p1") {
-      this.curve.x1 = point.x;
-      this.curve.y1 = point.y;
+      this.curve.x1 = x;
+      this.curve.y1 = y;
     } else if (this.draggingPoint?.point === "p2") {
-      this.curve.x2 = point.x;
-      this.curve.y2 = point.y;
+      this.curve.x2 = x;
+      this.curve.y2 = y;
     }
   };
 
@@ -66,7 +73,8 @@ export class CurveGenerator {
   private onTouchMove = (e: TouchEvent) => {
     const touch = e.touches[0];
     if (touch) {
-      if (this.draggingPoint) {
+      // Prevent default behavior to avoid interfering with touch scrolling and zooming if a point is being dragged
+      if (this.draggingPoint?.point) {
         e.preventDefault();
       }
       this.updateCurve(touch.clientX, touch.clientY);
